@@ -10,3 +10,8 @@ def test_almost_due_car_is_flagged():
 def test_missing_reading_is_not_treated_as_zero():
     # A car with NO last-service reading must not be treated as fully worn.
     assert needs_service({"id": "VOS-7788", "odometer": 92000}) is False
+
+
+def test_null_last_service_km_is_not_flagged():
+    # A car whose last_service_km is present but None (null in JSON) must not crash or be flagged.
+    assert needs_service({"id": "VOS-7788", "odometer": 92000, "last_service_km": None}) is False
